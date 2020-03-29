@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package codebender.qrcode.v1;
+
+option go_package = "qrcodev1";
+
+// The QRCodeAPI service definition.
+service QRCodeAPI {
+  // Generate returns a QR image with the input encoded.
+  rpc Generate (GenerateRequest) returns (GenerateResponse);
+}
+
+message GenerateRequest {
+  string data = 1;
+}
+
+message GenerateResponse {
+  bytes qr_code = 1;
+}
