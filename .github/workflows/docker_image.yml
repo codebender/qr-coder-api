@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Publish Docker Image
+        uses: elgohr/Publish-Docker-Github-Action@2.14
+        with:
+          registry: docker.pkg.github.com
+          name: codebender/qrcode-api/qrcode-api
+          username: codebender
+          password: ${{ secrets.GITHUB_TOKEN }}
+          snapshot: true
+          tag_semver: true
