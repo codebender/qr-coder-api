@@ -2,8 +2,6 @@ name: Docker Image CI
 
 on:
   push:
-    branches:
-      - master
     tags:
       - 'v*.*.*'
 
@@ -30,5 +28,4 @@ jobs:
           name: codebender/qrcode-api/qrcode-api
           username: codebender
           password: ${{ secrets.GITHUB_TOKEN }}
-          snapshot: true
           tag_semver: true
