@@ -26,5 +26,35 @@ jobs:
       run: go mod vendor
 
     - name: Build
-      run: go build -mod vendor
+      run: go build
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.14
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.14
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: go mod vendor
+
+    - name: Setup Env
+      run: |
+        echo "::set-env name=GOPATH::$(go env GOPATH)"
+        echo "::add-path::$(go env GOPATH)/bin"
+      shell: bash
+
+    - name: install ginkgo
+      run: |
+        go get -u github.com/onsi/ginkgo/ginkgo
+
+    - name: Run tests
+      run: $GOPATH/bin/ginkgo -r
 
